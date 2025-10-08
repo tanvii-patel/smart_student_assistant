@@ -1,0 +1,8 @@
+<h2>Welcome, {{ user.name }}</h2>
+<h3>Notifications:</h3>
+<ul>
+{% for n in notifications %}
+    <li>{{ n.message }} ({{ n.date_posted }})</li>
+{% endfor %}
+</ul>
+<a href="/logout">Logout</a>
