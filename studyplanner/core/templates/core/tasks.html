@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tasks - Smart Study Planner</title>
+</head>
+<body>
+    <h1>My Tasks</h1>
+    {% if tasks %}
+        <ul>
+            {% for task in tasks %}
+                <li>{{ task.name }} - {{ task.due_date }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No tasks yet.</p>
+    {% endif %}
+    <a href="/">Go back to Home</a>
+</body>
+</html>

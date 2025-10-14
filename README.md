@@ -1,1 +1,0 @@
-# smart_student_assistant
