@@ -16,3 +16,6 @@ def resources(request):
     res = Resource.objects.all()
     return render(request, 'core/resources.html', {'res': res})
 
+def task_list(request):
+    tasks = Task.objects.all()  # fetch all tasks
+    return render(request, 'tasks.html', {'tasks': tasks})
