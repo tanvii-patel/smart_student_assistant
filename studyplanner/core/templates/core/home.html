@@ -1,14 +1,47 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Smart Study Planner</title>
-</head>
-<body>
-    <h1>Welcome to Smart Study Planner</h1>
-    <ul>
-        <li><a href="/timetable/">View Timetable</a></li>
-        <li><a href="/tasks/">View Tasks</a></li>
-        <li><a href="/resources/">View Resources</a></li>
-    </ul>
-</body>
-</html>
+{% extends 'core/base.html' %} 
+{% block title %}Home | Smart Student Assistant{% endblock %} 
+{% block content %}
+<div class="text-center mb-5">
+  <h1 class="display-5 fw-bold text-primary">
+    Welcome to Smart Student Assistant
+  </h1>
+  <p class="lead">Your all-in-one academic planner and study helper.</p>
+</div>
+
+<div class="row text-center">
+  <div class="col-md-4 mb-4">
+    <div class="card h-100 shadow-sm">
+      <div class="card-body">
+        <i class="fas fa-book fa-3x text-primary mb-3"></i>
+        <h5 class="card-title">Resources</h5>
+        <p class="card-text">Organize and access your study materials.</p>
+        <a href="{% url 'resources' %}" class="btn btn-primary"
+          >Go to Resources</a
+        >
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4 mb-4">
+    <div class="card h-100 shadow-sm">
+      <div class="card-body">
+        <i class="fas fa-tasks fa-3x text-primary mb-3"></i>
+        <h5 class="card-title">Tasks</h5>
+        <p class="card-text">Manage your assignments and deadlines.</p>
+        <a href="{% url 'tasks' %}" class="btn btn-primary">Go to Tasks</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4 mb-4">
+    <div class="card h-100 shadow-sm">
+      <div class="card-body">
+        <i class="fas fa-calendar-alt fa-3x text-primary mb-3"></i>
+        <h5 class="card-title">Timetable</h5>
+        <p class="card-text">View your class and exam schedule.</p>
+        <a href="{% url 'timetable' %}" class="btn btn-primary"
+          >Go to Timetable</a
+        >
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

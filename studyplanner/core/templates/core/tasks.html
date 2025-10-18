@@ -1,41 +1,99 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>My Tasks</title>
-  <style>
-    body { font-family: Arial; background-color: #f8f9fa; color: #333; }
-    h1 { color: #007bff; }
-    table { width: 60%; border-collapse: collapse; margin: 20px 0; }
-    th, td { border: 1px solid #ccc; padding: 10px; text-align: left; }
-    th { background-color: #007bff; color: white; }
-    tr:nth-child(even) { background-color: #f2f2f2; }
-    a { text-decoration: none; color: #007bff; }
-  </style>
-</head>
-<body>
-  <h1>My Tasks</h1>
+{% extends 'core/base.html' %} {% block title %}Tasks | Smart Student Assistant{% endblock %} {% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1 class="display-6 fw-bold text-primary">Your Tasks</h1>
+  <button
+    class="btn btn-primary"
+    data-bs-toggle="modal"
+    data-bs-target="#addTaskModal"
+  >
+    <i class="fas fa-plus me-2"></i>Add Task
+  </button>
+</div>
 
-  {% if tasks %}
-  <table>
-    <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Deadline</th>
-      <th>Status</th>
-    </tr>
-    {% for task in tasks %}
-    <tr>
-      <td>{{ task.title }}</td>
-      <td>{{ task.description }}</td>
-      <td>{{ task.deadline }}</td>
-      <td>{{ task.status }}</td>
-    </tr>
-    {% endfor %}
-  </table>
-  {% else %}
-    <p>No tasks available.</p>
-  {% endif %}
+<div class="card shadow-sm">
+  <div class="card-body">
+    <ul class="list-group list-group-flush">
+      {% for task in tasks %}
+      <li
+        class="list-group-item d-flex justify-content-between align-items-center"
+      >
+        <div>
+          <input class="form-check-input me-2" type="checkbox" value=""
+          id="task{{ task.id }}" {% if task.status == 'Completed' %}checked{%
+          endif %} />
+          <label class="form-check-label" for="task{{ task.id }}">
+            {{ task.title }}
+          </label>
+          <p class="text-muted mb-0">{{ task.description }}</p>
+        </div>
+        <span class="badge bg-primary rounded-pill"
+          >{{ task.deadline|date:"M d" }}</span
+        >
+      </li>
+      {% empty %}
+      <li class="list-group-item">No tasks found.</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
 
-  <a href="/">Go back to Home</a>
-</body>
-</html>
+<!-- Add Task Modal -->
+<div class="modal fade" id="addTaskModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add New Task</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="{% url 'tasks' %}">
+          {% csrf_token %}
+          <div class="mb-3">
+            <label for="title" class="form-label">Task Title</label>
+            <input
+              type="text"
+              class="form-control"
+              id="title"
+              name="title"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea
+              class="form-control"
+              id="description"
+              name="description"
+              rows="3"
+            ></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="deadline" class="form-label">Due Date</label>
+            <input
+              type="date"
+              class="form-control"
+              id="deadline"
+              name="deadline"
+              required
+            />
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="submit" class="btn btn-primary">Save Task</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
